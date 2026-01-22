@@ -8,25 +8,32 @@
   body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background: #f0f8ff;
+    background: #e0e0e0; /* lekko szare tło */
     padding: 50px;
   }
   h1 {
-    color: #333;
+    color: #222; /* ciemnoszary */
+  }
+  .vacation-date {
+    font-size: 0.9em;
+    color: #003366; /* ciemny niebieski */
+    margin-bottom: 20px;
   }
   .countdown {
     font-size: 2em;
     margin: 20px 0;
+    color: #000; /* czarny */
   }
   .percentage {
     font-size: 1.5em;
     margin-top: 20px;
-    color: #0077cc;
+    color: #006666; /* ciemny turkus */
   }
 </style>
 </head>
 <body>
-<h1>Odliczanie do wakacji</h1>
+<h1>Do wakacji pozostało:</h1>
+<div class="vacation-date" id="vacationDateText"></div>
 <div class="countdown" id="countdown"></div>
 <div class="percentage" id="percentage"></div>
 
@@ -36,6 +43,12 @@ function updateCountdown() {
 
     // Data końca roku szkolnego 26 czerwca 2026
     const vacationDate = new Date(2026, 5, 26, 0, 0, 0); // miesiące od 0, więc 5 = czerwiec
+
+    // Wyświetlanie daty wakacji w formacie dd.mm.yyyy
+    const day = String(vacationDate.getDate()).padStart(2, '0');
+    const month = String(vacationDate.getMonth() + 1).padStart(2, '0'); // miesiące od 0
+    const year = vacationDate.getFullYear();
+    document.getElementById('vacationDateText').innerText = `Wakacje zaczynają się: ${day}.${month}.${year}`;
 
     const diff = vacationDate - now;
 
@@ -52,7 +65,6 @@ function updateCountdown() {
     const schoolStart = new Date(2025, 8, 1); // 1 września 2025
     const schoolEnd = vacationDate;
     const totalSchoolTime = schoolEnd - schoolStart;
-    const elapsedTime = now - schoolStart;
     let percentLeft = ((schoolEnd - now) / totalSchoolTime) * 100;
     percentLeft = percentLeft < 0 ? 0 : percentLeft.toFixed(2);
 
@@ -60,7 +72,7 @@ function updateCountdown() {
         `Pozostało ${percentLeft}% roku szkolnego`;
 }
 
-// aktualizacja co sekundę
+// Aktualizacja co sekundę
 setInterval(updateCountdown, 1000);
 updateCountdown();
 </script>
