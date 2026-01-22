@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odliczanie do wakacji</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f0f8ff;
+    padding: 50px;
+  }
+  h1 {
+    color: #333;
+  }
+  .countdown {
+    font-size: 2em;
+    margin: 20px 0;
+  }
+  .percentage {
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #0077cc;
+  }
+</style>
+</head>
+<body>
+<h1>Odliczanie do wakacji</h1>
+<div class="countdown" id="countdown"></div>
+<div class="percentage" id="percentage"></div>
+
+<script>
+function updateCountdown() {
+    const now = new Date();
+
+    // Data końca roku szkolnego 26 czerwca 2026
+    const vacationDate = new Date(2026, 5, 26, 0, 0, 0); // miesiące od 0, więc 5 = czerwiec
+
+    const diff = vacationDate - now;
+
+    const seconds = Math.floor(diff / 1000 % 60);
+    const minutes = Math.floor(diff / (1000 * 60) % 60);
+    const hours = Math.floor(diff / (1000 * 60 * 60) % 24);
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24) % 7);
+    const weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+
+    document.getElementById('countdown').innerHTML =
+        `${weeks} tygodni, ${days} dni, ${hours} godzin, ${minutes} minut, ${seconds} sekund`;
+
+    // Procent roku szkolnego (1 września 2025 - 26 czerwca 2026)
+    const schoolStart = new Date(2025, 8, 1); // 1 września 2025
+    const schoolEnd = vacationDate;
+    const totalSchoolTime = schoolEnd - schoolStart;
+    const elapsedTime = now - schoolStart;
+    let percentLeft = ((schoolEnd - now) / totalSchoolTime) * 100;
+    percentLeft = percentLeft < 0 ? 0 : percentLeft.toFixed(2);
+
+    document.getElementById('percentage').innerHTML =
+        `Pozostało ${percentLeft}% roku szkolnego`;
+}
+
+// Aktualizacja co sekundę
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+</body>
+</html>
