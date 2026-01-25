@@ -8,43 +8,47 @@
   body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background: #e0e0e0; /* lekko szare tło */
+    background: #e0e0e0;
     padding: 50px;
   }
   h1 {
-    color: #222; /* ciemnoszary */
+    color: #222;
   }
   .vacation-date {
     font-size: 0.9em;
-    color: #003366; /* ciemny niebieski */
+    color: #003366;
     margin-bottom: 20px;
   }
   .countdown {
     font-size: 2em;
     margin: 20px 0;
-    color: #000; /* czarny */
+    color: #000;
   }
   .percentage {
     font-size: 1.5em;
     margin-top: 20px;
-    color: #006666; /* ciemny turkus */
+    color: #006666;
   }
 </style>
 </head>
 <body>
+<!-- nagłówek -->
 <h1>Do wakacji pozostało:</h1>
+<!-- data wakacji -->
 <div class="vacation-date" id="vacationDateText"></div>
+<!-- odliczanie czasu -->
 <div class="countdown" id="countdown"></div>
+<!-- procent pozostałego roku szkolnego -->
 <div class="percentage" id="percentage"></div>
 
 <script>
 function updateCountdown() {
     const now = new Date();
 
-    // Data końca roku szkolnego 26 czerwca 2026
+    //data końca roku szkolnego 26 czerwca 2026
     const vacationDate = new Date(2026, 5, 26, 0, 0, 0); // miesiące od 0, więc 5 = czerwiec
 
-    // Wyświetlanie daty wakacji w formacie dd.mm.yyyy
+    //wyświetlanie daty wakacji w formacie dd.mm.yyyy
     const day = String(vacationDate.getDate()).padStart(2, '0');
     const month = String(vacationDate.getMonth() + 1).padStart(2, '0'); // miesiące od 0
     const year = vacationDate.getFullYear();
@@ -61,7 +65,7 @@ function updateCountdown() {
     document.getElementById('countdown').innerHTML =
         `${weeks} tygodni, ${days} dni, ${hours} godzin, ${minutes} minut, ${seconds} sekund`;
 
-    // Procent roku szkolnego (1 września 2025 - 26 czerwca 2026)
+    //procent roku szkolnego (1 września 2025 - 26 czerwca 2026)
     const schoolStart = new Date(2025, 8, 1); // 1 września 2025
     const schoolEnd = vacationDate;
     const totalSchoolTime = schoolEnd - schoolStart;
@@ -72,7 +76,7 @@ function updateCountdown() {
         `Pozostało ${percentLeft}% roku szkolnego`;
 }
 
-// Aktualizacja co sekundę
+//aktualizacja co sekundę
 setInterval(updateCountdown, 1000);
 updateCountdown();
 </script>
